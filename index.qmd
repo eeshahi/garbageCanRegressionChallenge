@@ -15,7 +15,7 @@ execute:
 ## Python Code
 
 ```{python}
-#| echo: true
+#| echo: false
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -43,7 +43,7 @@ Follow the challenge instructions from your course to complete your analysis.
 ### 1. Bivariate Regression: Anxiety on StressSurvey
 
 ```{python}
-#| echo: true
+#| echo: false
 # Bivariate regression of Anxiety on StressSurvey
 X = observDF[['StressSurvey']]
 y = observDF['Anxiety']
@@ -75,7 +75,7 @@ print("Note: The true model uses 'Stress' and 'Time', not 'StressSurvey'")
 ```
 
 ```{python}
-#| echo: true
+#| echo: false
 # Compare with true relationship
 print("Comparison with True Relationship:")
 print("=" * 40)
