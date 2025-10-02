@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Choose R or Python and delete the other code chunk.</strong></p>
 <section id="python-code" class="level2">
 <h2 class="anchored" data-anchor-id="python-code">Python Code</h2>
-<div id="0089d749" class="cell" data-execution_count="1">
+<div id="5a04dd5a" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>    Stress  StressSurvey  Time  Anxiety
 0        0             0   0.0     0.00
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="bivariate-regression-anxiety-on-stresssurvey" class="level3">
 <h3 class="anchored" data-anchor-id="bivariate-regression-anxiety-on-stresssurvey">1. Bivariate Regression: Anxiety on StressSurvey</h3>
-<div id="6aee4652" class="cell" data-execution_count="2">
+<div id="72b15ba6" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>Bivariate Regression Results: Anxiety ~ StressSurvey
 ==================================================
@@ -108,7 +108,7 @@ Dep. Variable:                Anxiety   R-squared:                       0.901
 Model:                            OLS   Adj. R-squared:                  0.893
 Method:                 Least Squares   F-statistic:                     118.4
 Date:                Thu, 02 Oct 2025   Prob (F-statistic):           6.68e-08
-Time:                        16:51:50   Log-Likelihood:                -27.079
+Time:                        16:58:36   Log-Likelihood:                -27.079
 No. Observations:                  15   AIC:                             58.16
 Df Residuals:                      13   BIC:                             59.57
 Df Model:                           1                                         
@@ -143,7 +143,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="2fae3e7d" class="cell" data-execution_count="3">
+<div id="3e2cdb0d" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison with True Relationship:
 ========================================
@@ -168,7 +168,7 @@ Correlation between Stress and StressSurvey: 0.9468</code></pre>
 </section>
 <section id="visualization-of-bivariate-relationship" class="level3">
 <h3 class="anchored" data-anchor-id="visualization-of-bivariate-relationship">2. Visualization of Bivariate Relationship</h3>
-<div id="e707b469" class="cell" data-execution_count="4">
+<div id="5b88f820" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -193,7 +193,7 @@ Standard error of residuals: 1.5808</code></pre>
 </section>
 <section id="bivariate-regression-analysis-with-time" class="level3">
 <h3 class="anchored" data-anchor-id="bivariate-regression-analysis-with-time">3. Bivariate Regression Analysis with Time</h3>
-<div id="82bf6c83" class="cell" data-execution_count="5">
+<div id="a93af7d0" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>Bivariate Regression Results: Anxiety ~ Time
 ==================================================
@@ -203,7 +203,7 @@ Dep. Variable:                Anxiety   R-squared:                       0.563
 Model:                            OLS   Adj. R-squared:                  0.529
 Method:                 Least Squares   F-statistic:                     16.75
 Date:                Thu, 02 Oct 2025   Prob (F-statistic):            0.00127
-Time:                        16:51:51   Log-Likelihood:                -38.223
+Time:                        16:58:36   Log-Likelihood:                -38.223
 No. Observations:                  15   AIC:                             80.45
 Df Residuals:                      13   BIC:                             81.86
 Df Model:                           1                                         
@@ -238,7 +238,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="b461ebf0" class="cell" data-execution_count="6">
+<div id="13e30641" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison with True Relationship:
 ========================================
@@ -266,7 +266,7 @@ Time vs Anxiety: 0.7504</code></pre>
 </section>
 <section id="visualization-of-bivariate-relationship-1" class="level3">
 <h3 class="anchored" data-anchor-id="visualization-of-bivariate-relationship-1">4. Visualization of Bivariate Relationship</h3>
-<div id="2f8159ad" class="cell" data-execution_count="7">
+<div id="70c189f6" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -290,6 +290,96 @@ Bias in Time coefficient: 5.2406</code></pre>
 </section>
 <section id="comments-on-time-anxiety-fit-and-potential-issues" class="level3">
 <h3 class="anchored" data-anchor-id="comments-on-time-anxiety-fit-and-potential-issues">Comments on Time-Anxiety Fit and Potential Issues</h3>
+<p>The estimated line is Ŷ = −3.680 + 5.341·Time. The fit is only moderate. Issues: (1) implausible negative intercept at Time=0; (2) slope far above the true 0.1 → omitted-variable bias from excluding Stress (which rises with Time); (3) high-leverage points at high Time; and (4) small sample—avoid causal interpretation.</p>
+</section>
+<section id="multiple-regression-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-regression-analysis">5. Multiple Regression Analysis</h3>
+<div id="085d94d8" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-stdout">
+<pre><code>Multiple Regression Results: Anxiety ~ StressSurvey + Time
+============================================================
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                Anxiety   R-squared:                       0.935
+Model:                            OLS   Adj. R-squared:                  0.924
+Method:                 Least Squares   F-statistic:                     86.32
+Date:                Thu, 02 Oct 2025   Prob (F-statistic):           7.54e-08
+Time:                        16:58:37   Log-Likelihood:                -23.931
+No. Observations:                  15   AIC:                             53.86
+Df Residuals:                      12   BIC:                             55.99
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+================================================================================
+                   coef    std err          t      P&gt;|t|      [0.025      0.975]
+--------------------------------------------------------------------------------
+const            0.5888      1.034      0.569      0.580      -1.664       2.841
+StressSurvey     1.4269      0.172      8.287      0.000       1.052       1.802
+Time            -2.7799      1.111     -2.502      0.028      -5.201      -0.359
+==============================================================================
+Omnibus:                        1.255   Durbin-Watson:                   1.043
+Prob(Omnibus):                  0.534   Jarque-Bera (JB):                1.051
+Skew:                           0.546   Prob(JB):                        0.591
+Kurtosis:                       2.302   Cond. No.                         31.9
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+Estimated Coefficients:
+Intercept: 0.5888
+StressSurvey coefficient: 1.4269
+Time coefficient: -2.7799
+R-squared: 0.9350
+
+True Relationship: Anxiety = Stress + 0.1 × Time
+Note: The true model uses Stress (not StressSurvey) and has no intercept</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/anaconda3/lib/python3.12/site-packages/scipy/stats/_axis_nan_policy.py:531: UserWarning:
+
+kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
+</code></pre>
+</div>
+</div>
+<div id="e2c162d9" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-stdout">
+<pre><code>Comparison with True Relationship:
+==================================================
+True coefficients:
+  Stress: 1.0
+  Time: 0.1
+  Intercept: 0.0
+
+Estimated coefficients:
+  StressSurvey: 1.4269
+  Time: -2.7799
+  Intercept: 0.5888
+
+Differences from true values:
+  StressSurvey vs Stress: 0.4269
+  Time: 2.8799
+  Intercept: 0.5888
+
+Correlation Matrix:
+              Stress  StressSurvey    Time  Anxiety
+Stress        1.0000        0.9468  0.7441   1.0000
+StressSurvey  0.9468        1.0000  0.8819   0.9493
+Time          0.7441        0.8819  1.0000   0.7504
+Anxiety       1.0000        0.9493  0.7504   1.0000</code></pre>
+</div>
+</div>
+<div id="8160560f" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-11-output-1.png" width="1429" height="949" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretation-of-multiple-regression-results" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-of-multiple-regression-results">Interpretation of Multiple Regression Results</h3>
 </section>
 </section>
 </section>

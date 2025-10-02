@@ -327,5 +327,128 @@ print(f"Bias in Time coefficient: {slope_time - 0.1:.4f}")
 ```
 
 ### Comments on Time-Anxiety Fit and Potential Issues
+The estimated line is Ŷ = −3.680 + 5.341·Time. The fit is only moderate. Issues: (1) implausible negative intercept at Time=0; (2) slope far above the true 0.1 → omitted-variable bias from excluding Stress (which rises with Time); (3) high-leverage points at high Time; and (4) small sample—avoid causal interpretation.
 
- 
+
+### 5. Multiple Regression Analysis
+
+```{python}
+#| echo: false
+# Multiple regression of Anxiety on both StressSurvey and Time
+X_multiple = observDF[['StressSurvey', 'Time']]
+y_multiple = observDF['Anxiety']
+
+# Add constant for intercept
+X_multiple_with_const = sm.add_constant(X_multiple)
+
+# Fit the multiple regression model
+model_multiple = sm.OLS(y_multiple, X_multiple_with_const).fit()
+
+# Display results
+print("Multiple Regression Results: Anxiety ~ StressSurvey + Time")
+print("=" * 60)
+print(model_multiple.summary())
+
+# Extract coefficients
+intercept_multiple = model_multiple.params['const']
+slope_stressurvey_multiple = model_multiple.params['StressSurvey']
+slope_time_multiple = model_multiple.params['Time']
+r_squared_multiple = model_multiple.rsquared
+
+print(f"\nEstimated Coefficients:")
+print(f"Intercept: {intercept_multiple:.4f}")
+print(f"StressSurvey coefficient: {slope_stressurvey_multiple:.4f}")
+print(f"Time coefficient: {slope_time_multiple:.4f}")
+print(f"R-squared: {r_squared_multiple:.4f}")
+
+# True relationship: Anxiety = Stress + 0.1 × Time
+print(f"\nTrue Relationship: Anxiety = Stress + 0.1 × Time")
+print("Note: The true model uses Stress (not StressSurvey) and has no intercept")
+```
+
+```{python}
+#| echo: false
+# Compare with true relationship
+print("Comparison with True Relationship:")
+print("=" * 50)
+
+# True coefficients
+true_stress_coef = 1.0  # Coefficient of Stress in true model
+true_time_coef = 0.1    # Coefficient of Time in true model
+true_intercept_multiple = 0.0  # No intercept in true model
+
+print(f"True coefficients:")
+print(f"  Stress: {true_stress_coef}")
+print(f"  Time: {true_time_coef}")
+print(f"  Intercept: {true_intercept_multiple}")
+
+print(f"\nEstimated coefficients:")
+print(f"  StressSurvey: {slope_stressurvey_multiple:.4f}")
+print(f"  Time: {slope_time_multiple:.4f}")
+print(f"  Intercept: {intercept_multiple:.4f}")
+
+print(f"\nDifferences from true values:")
+print(f"  StressSurvey vs Stress: {abs(slope_stressurvey_multiple - true_stress_coef):.4f}")
+print(f"  Time: {abs(slope_time_multiple - true_time_coef):.4f}")
+print(f"  Intercept: {abs(intercept_multiple - true_intercept_multiple):.4f}")
+
+# Check correlations between variables
+print(f"\nCorrelation Matrix:")
+correlation_matrix = observDF[['Stress', 'StressSurvey', 'Time', 'Anxiety']].corr()
+print(correlation_matrix.round(4))
+```
+
+```{python}
+#| echo: false
+# Visualize the multiple regression results
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
+
+# Plot 1: Actual vs Predicted
+y_pred_multiple = model_multiple.predict(X_multiple_with_const)
+ax1.scatter(y_multiple, y_pred_multiple, alpha=0.7, s=100, color='purple', edgecolors='black')
+ax1.plot([y_multiple.min(), y_multiple.max()], [y_multiple.min(), y_multiple.max()], 'r--', linewidth=2)
+ax1.set_xlabel('Actual Anxiety')
+ax1.set_ylabel('Predicted Anxiety')
+ax1.set_title('Actual vs Predicted Anxiety\n(Multiple Regression)')
+ax1.grid(True, alpha=0.3)
+
+# Plot 2: Residuals vs Fitted
+residuals = y_multiple - y_pred_multiple
+ax2.scatter(y_pred_multiple, residuals, alpha=0.7, s=100, color='orange', edgecolors='black')
+ax2.axhline(y=0, color='r', linestyle='--', linewidth=2)
+ax2.set_xlabel('Fitted Values')
+ax2.set_ylabel('Residuals')
+ax2.set_title('Residuals vs Fitted Values')
+ax2.grid(True, alpha=0.3)
+
+# Plot 3: StressSurvey vs Anxiety with regression line
+ax3.scatter(observDF['StressSurvey'], observDF['Anxiety'], alpha=0.7, s=100, color='blue', edgecolors='black')
+# Show partial relationship (holding Time constant at mean)
+time_mean = observDF['Time'].mean()
+partial_line_y = intercept_multiple + slope_stressurvey_multiple * observDF['StressSurvey'] + slope_time_multiple * time_mean
+ax3.plot(observDF['StressSurvey'], partial_line_y, 'r-', linewidth=2, 
+         label=f'Partial effect (Time={time_mean:.2f})')
+ax3.set_xlabel('StressSurvey')
+ax3.set_ylabel('Anxiety')
+ax3.set_title('Partial Effect of StressSurvey')
+ax3.legend()
+ax3.grid(True, alpha=0.3)
+
+# Plot 4: Time vs Anxiety with regression line
+ax4.scatter(observDF['Time'], observDF['Anxiety'], alpha=0.7, s=100, color='green', edgecolors='black')
+# Show partial relationship (holding StressSurvey constant at mean)
+stressurvey_mean = observDF['StressSurvey'].mean()
+partial_line_time = intercept_multiple + slope_stressurvey_multiple * stressurvey_mean + slope_time_multiple * observDF['Time']
+ax4.plot(observDF['Time'], partial_line_time, 'r-', linewidth=2, 
+         label=f'Partial effect (StressSurvey={stressurvey_mean:.2f})')
+ax4.set_xlabel('Time')
+ax4.set_ylabel('Anxiety')
+ax4.set_title('Partial Effect of Time')
+ax4.legend()
+ax4.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+### Interpretation of Multiple Regression Results
