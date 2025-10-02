@@ -260,3 +260,72 @@ plt.show()
 ```
 
 ### Interpretation of Time Regression Results
+Estimated coefficients (Anxiety ~ Time):
+𝛽^0 =−3.680 (intercept), 𝛽^Time =5.341 (slope).
+
+Comparison to the true relationship:
+True model: 𝛽0=0, 𝛽Time = 0.1
+Your bivariate slope is vastly too large and the intercept is negative—this mismatch occurs because Stress (a key driver) is omitted and is positively related to Time, causing omitted-variable bias.
+
+### 4. Visualization of Bivariate Relationship
+
+```{python}
+#| echo: false
+# Create detailed scatter plot with regression line for Time vs Anxiety
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Scatter plot
+ax.scatter(observDF['Time'], observDF['Anxiety'], 
+           alpha=0.7, s=120, color='darkgreen', edgecolors='black', linewidth=1.5)
+
+# Regression line
+x_range_time = np.linspace(observDF['Time'].min(), observDF['Time'].max(), 100)
+y_pred_time = intercept_time + slope_time * x_range_time
+ax.plot(x_range_time, y_pred_time, 'r-', linewidth=3, 
+         label=f'Regression Line: Anxiety = {intercept_time:.3f} + {slope_time:.3f} × Time')
+
+# Add data point labels for clarity
+for i, row in observDF.iterrows():
+    ax.annotate(f'({row["Time"]}, {row["Anxiety"]:.2f})', 
+                (row['Time'], row['Anxiety']),
+                xytext=(8, 8), textcoords='offset points',
+                fontsize=9, alpha=0.8, fontweight='bold')
+
+# Formatting
+ax.set_xlabel('Time', fontsize=12, fontweight='bold')
+ax.set_ylabel('Anxiety', fontsize=12, fontweight='bold')
+ax.set_title('Bivariate Relationship: Anxiety vs Time\nwith Regression Line', 
+             fontsize=14, fontweight='bold', pad=20)
+ax.legend(fontsize=11, loc='upper left')
+ax.grid(True, alpha=0.3)
+ax.set_facecolor('#f8f9fa')
+
+# Add regression statistics as text
+stats_text_time = f'R² = {r_squared_time:.4f}\nSlope = {slope_time:.4f}\nIntercept = {intercept_time:.4f}\nTrue Time Coef = 0.1'
+ax.text(0.02, 0.98, stats_text_time, transform=ax.transAxes, fontsize=10,
+        verticalalignment='top', bbox=dict(boxstyle='round', facecolor='lightgreen', alpha=0.8))
+
+# Add comparison to true relationship
+true_line_y = 0.1 * x_range_time
+ax.plot(x_range_time, true_line_y, 'orange', linestyle='--', linewidth=2, alpha=0.7,
+         label='True Time Component (0.1 × Time)')
+
+plt.tight_layout()
+plt.show()
+
+# Additional analysis
+print("Detailed Analysis of Time-Anxiety Relationship:")
+print("=" * 50)
+print(f"Number of observations: {len(observDF)}")
+print(f"Range of Time: {observDF['Time'].min()} to {observDF['Time'].max()}")
+print(f"Range of Anxiety: {observDF['Anxiety'].min():.2f} to {observDF['Anxiety'].max():.2f}")
+print(f"Correlation coefficient (Time-Anxiety): {observDF['Time'].corr(observDF['Anxiety']):.4f}")
+print(f"Standard error of residuals: {np.sqrt(model_time.mse_resid):.4f}")
+print(f"Estimated Time coefficient: {slope_time:.4f}")
+print(f"True Time coefficient: 0.1")
+print(f"Bias in Time coefficient: {slope_time - 0.1:.4f}")
+```
+
+### Comments on Time-Anxiety Fit and Potential Issues
+
+ 

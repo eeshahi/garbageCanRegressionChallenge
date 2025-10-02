@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Choose R or Python and delete the other code chunk.</strong></p>
 <section id="python-code" class="level2">
 <h2 class="anchored" data-anchor-id="python-code">Python Code</h2>
-<div id="0cfe02e0" class="cell" data-execution_count="1">
+<div id="0089d749" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>    Stress  StressSurvey  Time  Anxiety
 0        0             0   0.0     0.00
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="bivariate-regression-anxiety-on-stresssurvey" class="level3">
 <h3 class="anchored" data-anchor-id="bivariate-regression-anxiety-on-stresssurvey">1. Bivariate Regression: Anxiety on StressSurvey</h3>
-<div id="4cd1b2de" class="cell" data-execution_count="2">
+<div id="6aee4652" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>Bivariate Regression Results: Anxiety ~ StressSurvey
 ==================================================
@@ -108,7 +108,7 @@ Dep. Variable:                Anxiety   R-squared:                       0.901
 Model:                            OLS   Adj. R-squared:                  0.893
 Method:                 Least Squares   F-statistic:                     118.4
 Date:                Thu, 02 Oct 2025   Prob (F-statistic):           6.68e-08
-Time:                        16:43:48   Log-Likelihood:                -27.079
+Time:                        16:51:50   Log-Likelihood:                -27.079
 No. Observations:                  15   AIC:                             58.16
 Df Residuals:                      13   BIC:                             59.57
 Df Model:                           1                                         
@@ -143,7 +143,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="8c00f074" class="cell" data-execution_count="3">
+<div id="2fae3e7d" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison with True Relationship:
 ========================================
@@ -168,7 +168,7 @@ Correlation between Stress and StressSurvey: 0.9468</code></pre>
 </section>
 <section id="visualization-of-bivariate-relationship" class="level3">
 <h3 class="anchored" data-anchor-id="visualization-of-bivariate-relationship">2. Visualization of Bivariate Relationship</h3>
-<div id="c9da920f" class="cell" data-execution_count="4">
+<div id="e707b469" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -193,7 +193,7 @@ Standard error of residuals: 1.5808</code></pre>
 </section>
 <section id="bivariate-regression-analysis-with-time" class="level3">
 <h3 class="anchored" data-anchor-id="bivariate-regression-analysis-with-time">3. Bivariate Regression Analysis with Time</h3>
-<div id="b51bb50a" class="cell" data-execution_count="5">
+<div id="82bf6c83" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>Bivariate Regression Results: Anxiety ~ Time
 ==================================================
@@ -203,7 +203,7 @@ Dep. Variable:                Anxiety   R-squared:                       0.563
 Model:                            OLS   Adj. R-squared:                  0.529
 Method:                 Least Squares   F-statistic:                     16.75
 Date:                Thu, 02 Oct 2025   Prob (F-statistic):            0.00127
-Time:                        16:43:49   Log-Likelihood:                -38.223
+Time:                        16:51:51   Log-Likelihood:                -38.223
 No. Observations:                  15   AIC:                             80.45
 Df Residuals:                      13   BIC:                             81.86
 Df Model:                           1                                         
@@ -238,7 +238,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="e6e57207" class="cell" data-execution_count="6">
+<div id="b461ebf0" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison with True Relationship:
 ========================================
@@ -261,6 +261,35 @@ Time vs Anxiety: 0.7504</code></pre>
 </section>
 <section id="interpretation-of-time-regression-results" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-of-time-regression-results">Interpretation of Time Regression Results</h3>
+<p>Estimated coefficients (Anxiety ~ Time): 𝛽^0 =−3.680 (intercept), 𝛽^Time =5.341 (slope).</p>
+<p>Comparison to the true relationship: True model: 𝛽0=0, 𝛽Time = 0.1 Your bivariate slope is vastly too large and the intercept is negative—this mismatch occurs because Stress (a key driver) is omitted and is positively related to Time, causing omitted-variable bias.</p>
+</section>
+<section id="visualization-of-bivariate-relationship-1" class="level3">
+<h3 class="anchored" data-anchor-id="visualization-of-bivariate-relationship-1">4. Visualization of Bivariate Relationship</h3>
+<div id="2f8159ad" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-8-output-1.png" width="947" height="564" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Detailed Analysis of Time-Anxiety Relationship:
+==================================================
+Number of observations: 15
+Range of Time: 0.0 to 2.2
+Range of Anxiety: 0.00 to 12.22
+Correlation coefficient (Time-Anxiety): 0.7504
+Standard error of residuals: 3.3227
+Estimated Time coefficient: 5.3406
+True Time coefficient: 0.1
+Bias in Time coefficient: 5.2406</code></pre>
+</div>
+</div>
+</section>
+<section id="comments-on-time-anxiety-fit-and-potential-issues" class="level3">
+<h3 class="anchored" data-anchor-id="comments-on-time-anxiety-fit-and-potential-issues">Comments on Time-Anxiety Fit and Potential Issues</h3>
 </section>
 </section>
 </section>
