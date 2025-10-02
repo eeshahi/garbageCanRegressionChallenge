@@ -11,35 +11,6 @@ execute:
 
 **Choose R or Python and delete the other code chunk.**
 
-## R Code
-
-```{r}
-#| echo: true
-library(tidyverse)
-library(broom)
-
-# Data with known true relationships: Anxiety = Stress + 0.1 × Time
-observDF <- tribble(
-  ~Stress, ~StressSurvey, ~Time, ~Anxiety,
-  0,0,0,0,
-  0,0,1,0.1,
-  0,0,1,0.1,
-  1,3,1,1.1,
-  1,3,1,1.1,
-  1,3,1,1.1,
-  2,6,2,2.2,
-  2,6,2,2.2,
-  2,6,2,2.2,
-  8,9,2,8.2,
-  8,9,2,8.2,
-  8,9,2.1,8.21,
-  12,12,2.2,12.22,
-  12,12,2.2,12.22,
-  12,12,2.2,12.22
-)
-
-observDF
-```
 
 ## Python Code
 
@@ -68,3 +39,84 @@ print(observDF)
 ## Your Analysis
 
 Follow the challenge instructions from your course to complete your analysis.
+
+### 1. Bivariate Regression: Anxiety on StressSurvey
+
+```{python}
+#| echo: true
+# Bivariate regression of Anxiety on StressSurvey
+X = observDF[['StressSurvey']]
+y = observDF['Anxiety']
+
+# Add constant for intercept
+X_with_const = sm.add_constant(X)
+
+# Fit the regression model
+model = sm.OLS(y, X_with_const).fit()
+
+# Display results
+print("Bivariate Regression Results: Anxiety ~ StressSurvey")
+print("=" * 50)
+print(model.summary())
+
+# Extract coefficients
+intercept = model.params['const']
+slope = model.params['StressSurvey']
+r_squared = model.rsquared
+
+print(f"\nEstimated Coefficients:")
+print(f"Intercept: {intercept:.4f}")
+print(f"Slope (StressSurvey): {slope:.4f}")
+print(f"R-squared: {r_squared:.4f}")
+
+# True relationship: Anxiety = Stress + 0.1 × Time
+print(f"\nTrue Relationship: Anxiety = Stress + 0.1 × Time")
+print("Note: The true model uses 'Stress' and 'Time', not 'StressSurvey'")
+```
+
+```{python}
+#| echo: true
+# Compare with true relationship
+print("Comparison with True Relationship:")
+print("=" * 40)
+
+# Calculate true coefficients if we were regressing Anxiety on Stress
+true_stress_coef = 1.0  # Coefficient of Stress in true model
+true_intercept = 0.0    # No intercept in true model (approximately)
+
+print(f"True coefficient for Stress: {true_stress_coef}")
+print(f"Estimated coefficient for StressSurvey: {slope:.4f}")
+print(f"Difference: {abs(slope - true_stress_coef):.4f}")
+
+# Check if StressSurvey is a good proxy for Stress
+correlation_stress_stressurvey = observDF['Stress'].corr(observDF['StressSurvey'])
+print(f"\nCorrelation between Stress and StressSurvey: {correlation_stress_stressurvey:.4f}")
+
+# Visualize the relationship
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# Plot 1: Anxiety vs StressSurvey (what we're regressing)
+ax1.scatter(observDF['StressSurvey'], observDF['Anxiety'], alpha=0.7)
+ax1.plot(observDF['StressSurvey'], intercept + slope * observDF['StressSurvey'], 
+         'r-', linewidth=2, label=f'Fitted line: Anxiety = {intercept:.3f} + {slope:.3f} × StressSurvey')
+ax1.set_xlabel('StressSurvey')
+ax1.set_ylabel('Anxiety')
+ax1.set_title('Anxiety vs StressSurvey (Estimated)')
+ax1.legend()
+ax1.grid(True, alpha=0.3)
+
+# Plot 2: Anxiety vs Stress (true relationship)
+ax2.scatter(observDF['Stress'], observDF['Anxiety'], alpha=0.7)
+ax2.plot(observDF['Stress'], true_intercept + true_stress_coef * observDF['Stress'], 
+         'g-', linewidth=2, label='True relationship: Anxiety = Stress + 0.1 × Time')
+ax2.set_xlabel('Stress')
+ax2.set_ylabel('Anxiety')
+ax2.set_title('Anxiety vs Stress (True Relationship)')
+ax2.legend()
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+ 
