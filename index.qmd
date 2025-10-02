@@ -40,6 +40,7 @@ print(observDF)
 
 Follow the challenge instructions from your course to complete your analysis.
 
+### 75% Questions
 ### 1. Bivariate Regression: Anxiety on StressSurvey
 
 ```{python}
@@ -121,5 +122,57 @@ plt.show()
 
 ### Interpretation of Results
 It fits well but is wrong, because the true model is Anxiety = Stress + 0.1·Time (intercept 0, no StressSurvey), so using the survey proxy and omitting Time biases the result.
+
+### 2. Visualization of Bivariate Relationship
+
+```{python}
+#| echo: false
+# Create detailed scatter plot with regression line
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Scatter plot
+ax.scatter(observDF['StressSurvey'], observDF['Anxiety'], 
+           alpha=0.7, s=100, color='steelblue', edgecolors='black', linewidth=1)
+
+# Regression line
+x_range = np.linspace(observDF['StressSurvey'].min(), observDF['StressSurvey'].max(), 100)
+y_pred = intercept + slope * x_range
+ax.plot(x_range, y_pred, 'r-', linewidth=3, label=f'Regression Line: Anxiety = {intercept:.3f} + {slope:.3f} × StressSurvey')
+
+# Add data point labels for clarity
+for i, row in observDF.iterrows():
+    ax.annotate(f'({row["StressSurvey"]}, {row["Anxiety"]:.2f})', 
+                (row['StressSurvey'], row['Anxiety']),
+                xytext=(5, 5), textcoords='offset points',
+                fontsize=8, alpha=0.7)
+
+# Formatting
+ax.set_xlabel('StressSurvey', fontsize=12, fontweight='bold')
+ax.set_ylabel('Anxiety', fontsize=12, fontweight='bold')
+ax.set_title('Bivariate Relationship: Anxiety vs StressSurvey\nwith Regression Line', 
+             fontsize=14, fontweight='bold', pad=20)
+ax.legend(fontsize=11, loc='upper left')
+ax.grid(True, alpha=0.3)
+ax.set_facecolor('#f8f9fa')
+
+# Add regression statistics as text
+stats_text = f'R² = {r_squared:.4f}\nSlope = {slope:.4f}\nIntercept = {intercept:.4f}'
+ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, fontsize=10,
+        verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
+
+plt.tight_layout()
+plt.show()
+
+# Additional analysis
+print("Detailed Analysis of the Bivariate Relationship:")
+print("=" * 50)
+print(f"Number of observations: {len(observDF)}")
+print(f"Range of StressSurvey: {observDF['StressSurvey'].min()} to {observDF['StressSurvey'].max()}")
+print(f"Range of Anxiety: {observDF['Anxiety'].min():.2f} to {observDF['Anxiety'].max():.2f}")
+print(f"Correlation coefficient: {observDF['StressSurvey'].corr(observDF['Anxiety']):.6f}")
+print(f"Standard error of residuals: {np.sqrt(model.mse_resid):.4f}")
+```
+
+### Comments on Fit and Potential Issues
 
 
