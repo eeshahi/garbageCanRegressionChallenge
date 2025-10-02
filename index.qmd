@@ -119,4 +119,7 @@ plt.tight_layout()
 plt.show()
 ```
 
- 
+### Interpretation of Results
+It fits well but is wrong, because the true model is Anxiety = Stress + 0.1·Time (intercept 0, no StressSurvey), so using the survey proxy and omitting Time biases the result.
+
+
