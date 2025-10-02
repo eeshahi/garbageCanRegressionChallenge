@@ -577,3 +577,24 @@ plt.show()
 ```
 
 ### Interpretation of True Multiple Regression Results
+From my four graphs (actual≈predicted and the partial-effect plots), the multiple regression recovers the data-generating coefficients almost exactly: Ŷ ≈ 0 + 1.00·Stress + 0.10·Time (intercept ≈ 0). These match the true relationship Anxiety = Stress + 0.1·Time — fit is essentially perfect (residuals ≈ 0), confirming β_Stress ≈ 1 and β_Time ≈ 0.1.
+
+### Question 5: Model Comparison
+Comparing the two multiple regressions, the model using the true variables (Anxiety ~ Stress + Time) delivers R² ≈ 1.00 with coefficients near β_Stress = 1 and β_Time = 0.1, which are correctly interpretable and (effectively) statistically significant. In contrast, the proxy model (Anxiety ~ StressSurvey + Time) has a lower R² and distorted coefficients: StressSurvey is positive but in survey units (not equal to 1), while Time can appear large and even negative due to measurement error in the proxy and collinearity—so not all coefficients are reliably significant or causally meaningful. The real-world lesson is that a high R² or small p-values do not guarantee correct conclusions; if predictors are proxies or correlated, multiple regression can fit well yet yield misleading coefficient signs and magnitudes, so construct validity and multicollinearity checks are essential before interpreting effects.
+
+### 95% Grade Questions 
+### Question 6: Reflect on Real-World Implications
+Headline from Model 1 (Anxiety ~ StressSurvey + Time; Time came out large & negative):
+“More Time on Social Media Lowers Anxiety, Study Finds” (press spins the negative Time coefficient as “screen time is calming/beneficial”).
+
+Headline from Model 2 (Anxiety ~ Stress + Time; Time ≈ +0.1, Stress ≈ +1):
+“Each Extra Hour on Social Media Slightly Raises Anxiety—After Accounting for Stress” (small but positive effect; stress remains the dominant driver).
+
+Who believes what (confirmation bias):
+A typical parent is more likely to believe Model 2 (it confirms the prior that more social media → more anxiety).
+Facebook/Instagram/TikTok executives will prefer Model 1 (it suggests time on their platforms isn’t harmful—or even looks helpful), despite the proxy/collinearity issues.
+
+### 100% Grade Questions 
+### Question 7: Avoiding Misleading Statistical Significance 
+I split the data to a “stable regime” by trimming the extremes (drop the highest-Time points and very low/high StressSurvey), where the StressSurvey→Stress mapping is most linear and leverage is low. In this subset, the multiple regression Anxiety ~ StressSurvey + Time yields both coefficients statistically significant and closer to the true relationship: the Time slope shifts toward the true +0.1 (rather than the wrong sign from the full sample) and the intercept moves toward 0, while the StressSurvey slope remains positive but is interpreted in survey units (a proxy for Stress, so not expected to equal 1). This illustrates the garbage-can problem: in the full sample, adding an imperfect proxy can flip/distort a coefficient and still look “significant”; focusing on a coherent subset plus visual diagnostics recovers estimates that are substantively correct and interpretable.
+
