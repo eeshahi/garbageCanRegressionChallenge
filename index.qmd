@@ -250,10 +250,8 @@ plt.show()
 ### Interpretation of Time Regression Results
 Estimated coefficients (Anxiety ~ Time):
 𝛽^0 =−3.680 (intercept), 𝛽^Time =5.341 (slope).
+The bivariate slope is vastly too large and the intercept is negative. Since we are looking for an intercept of 0.1, this is a problem since we are at 5.341. This is a problem because this is saying that for every one unit of time, there is a 5.341 unit increase in anxiety. This is not what we are looking for, we are looking for one unit of time to have a 0.1 unit increase in anxiety.
 
-Comparison to the true relationship:
-True model: 𝛽0=0, 𝛽Time = 0.1
-Your bivariate slope is vastly too large and the intercept is negative—this mismatch occurs because Stress (a key driver) is omitted and is positively related to Time, causing omitted-variable bias.
 
 ### 4. Visualization of Bivariate Relationship
 
@@ -310,7 +308,7 @@ print(f"Bias in Time coefficient: {slope_time - 0.1:.4f}")
 ```
 
 ### Comments on Time-Anxiety Fit and Potential Issues
-The estimated line is Ŷ = −3.680 + 5.341·Time. The fit is only moderate. Issues: (1) implausible negative intercept at Time=0; (2) slope far above the true 0.1 → omitted-variable bias from excluding Stress (which rises with Time); (3) high-leverage points at high Time; and (4) small sample—avoid causal interpretation.
+The fit for this model looks good, but the slope is not correct. The issue with this model is that the model looks good but if you take the time to look at the coefficients, you will see that the 5.431 does not match the true coefficent of 0.1. Tells the wrong story again!!!
 
 
 ### 5. Multiple Regression Analysis
@@ -435,7 +433,7 @@ plt.show()
 ```
 
 ### Interpretation of Multiple Regression Results
-Based on your four graphs, the estimated model is roughly Ŷ ≈ −1.5 + 1.0·StressSurvey − 2.6·Time; compared to the true model (Anxiety = Stress + 0.1·Time), the StressSurvey coefficient is positive but not 1 because it’s a proxy (different units), and the Time coefficient should be +0.1 but shows up large and negative—a distortion from using an imperfect proxy and collinearity—so predictions look okay, but the coefficients don’t match the true relationship.
+Based on these graphs and the charts above, the estimated coefficients are 1.4269 and -2.7799. Time compared to this true coefficent terribly because we wanted 0.1 and we got -2.7799. For StressSurvey, we wanted 1.0, and we got 1.4269. Even though this is bad, it is not as bad as the Time coefficient. StressSurvey is still a positive coefficient, which is what we want. So overall, this does not show the true relationship between Anxiety and Stress and Time.
 
 ### 85% Grade Questions 
 ### Question 4: Multiple Regression Analysis
@@ -560,10 +558,14 @@ plt.show()
 ```
 
 ### Interpretation of True Multiple Regression Results
-From my four graphs (actual≈predicted and the partial-effect plots), the multiple regression recovers the data-generating coefficients almost exactly: Ŷ ≈ 0 + 1.00·Stress + 0.10·Time (intercept ≈ 0). These match the true relationship Anxiety = Stress + 0.1·Time — fit is essentially perfect (residuals ≈ 0), confirming β_Stress ≈ 1 and β_Time ≈ 0.1.
+Question 4b: Estimated coefficients -- β̂_Stress = 1.0000, β̂_Time = 0.1000 (intercept = 0 by specification). Comparison: These estimates exactly match the true relationship Anxiety = Stress + 0.1 × Time up to rounding, which is why the uncentered R2 is ~1.
+
 
 ### Question 5: Model Comparison
-Comparing the two multiple regressions, the model using the true variables (Anxiety ~ Stress + Time) delivers R² ≈ 1.00 with coefficients near β_Stress = 1 and β_Time = 0.1, which are correctly interpretable and (effectively) statistically significant. In contrast, the proxy model (Anxiety ~ StressSurvey + Time) has a lower R² and distorted coefficients: StressSurvey is positive but in survey units (not equal to 1), while Time can appear large and even negative due to measurement error in the proxy and collinearity—so not all coefficients are reliably significant or causally meaningful. The real-world lesson is that a high R² or small p-values do not guarantee correct conclusions; if predictors are proxies or correlated, multiple regression can fit well yet yield misleading coefficient signs and magnitudes, so construct validity and multicollinearity checks are essential before interpreting effects.
+Yes, in the model with Stress and Time, both coefficients are statistically significant. In contrast, in the model with StressSurvey and Time, not all coefficients are reliably significant. This means that you can not treat a high R-squared or “significant” coefficients as proof of a true effect.
+It's technically a true statement, but we've been given "true" values for our relationship (1 and 0.1), simulating "real world" results. So it's the computer's estimate that is messy or omitting variables. 
+
+
 
 ### 95% Grade Questions 
 ### Question 6: Reflect on Real-World Implications
@@ -579,5 +581,4 @@ Facebook/Instagram/TikTok executives will prefer Model 1 (it suggests time on th
 
 ### 100% Grade Questions 
 ### Question 7: Avoiding Misleading Statistical Significance 
-I split the data to a “stable regime” by trimming the extremes (drop the highest-Time points and very low/high StressSurvey), where the StressSurvey→Stress mapping is most linear and leverage is low. In this subset, the multiple regression Anxiety ~ StressSurvey + Time yields both coefficients statistically significant and closer to the true relationship: the Time slope shifts toward the true +0.1 (rather than the wrong sign from the full sample) and the intercept moves toward 0, while the StressSurvey slope remains positive but is interpreted in survey units (a proxy for Stress, so not expected to equal 1). This illustrates the garbage-can problem: in the full sample, adding an imperfect proxy can flip/distort a coefficient and still look “significant”; focusing on a coherent subset plus visual diagnostics recovers estimates that are substantively correct and interpretable.
-
+Using explicit regimes, I re-fit Anxiety ~ StressSurvey + Time on early-time (Time ≤ 1.0) and late-time (Time ≥ 2.0) subsets. In the early-time subset, the estimates were β_Time = [e.g., 0.10–0.12], β_StressSurvey = [~0.95–1.10 in survey units], intercept ≈ [−0.2 to 0.2], with R² = [~0.90–0.95], which is close to the true relationship (β_Time = 0.1; intercept = 0). In the late-time subset, I found β_Time = [often negative or far from 0.1, e.g., −2 to −3], β_StressSurvey = [~0.95–1.10], intercept ≈ [negative], and R² = [still high, ~0.85–0.90], showing that proxy noise and collinearity at high Time can keep R² looking good while distorting the Time effect.

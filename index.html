@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Choose R or Python and delete the other code chunk.</strong></p>
 <section id="python-code" class="level2">
 <h2 class="anchored" data-anchor-id="python-code">Python Code</h2>
-<div id="15c974ad" class="cell" data-execution_count="1">
+<div id="c93ceac0" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>    Stress  StressSurvey  Time  Anxiety
 0        0             0   0.0     0.00
@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="bivariate-regression-anxiety-on-stresssurvey" class="level3">
 <h3 class="anchored" data-anchor-id="bivariate-regression-anxiety-on-stresssurvey">1. Bivariate Regression: Anxiety on StressSurvey</h3>
-<div id="e96393d8" class="cell" data-execution_count="2">
+<div id="2ad34fdd" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>Bivariate Regression Results: Anxiety ~ StressSurvey
 ==================================================
@@ -108,7 +108,7 @@ Dep. Variable:                Anxiety   R-squared:                       0.901
 Model:                            OLS   Adj. R-squared:                  0.893
 Method:                 Least Squares   F-statistic:                     118.4
 Date:                Tue, 14 Oct 2025   Prob (F-statistic):           6.68e-08
-Time:                        17:38:47   Log-Likelihood:                -27.079
+Time:                        19:10:33   Log-Likelihood:                -27.079
 No. Observations:                  15   AIC:                             58.16
 Df Residuals:                      13   BIC:                             59.57
 Df Model:                           1                                         
@@ -143,7 +143,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="9be3c664" class="cell" data-execution_count="3">
+<div id="dbbe0bae" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison with True Relationship:
 ========================================
@@ -168,7 +168,7 @@ Correlation between Stress and StressSurvey: 0.9468</code></pre>
 </section>
 <section id="visualization-of-bivariate-relationship" class="level3">
 <h3 class="anchored" data-anchor-id="visualization-of-bivariate-relationship">2. Visualization of Bivariate Relationship</h3>
-<div id="d65dd73f" class="cell" data-execution_count="4">
+<div id="cad92e9a" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -193,7 +193,7 @@ Standard error of residuals: 1.5808</code></pre>
 </section>
 <section id="bivariate-regression-analysis-with-time" class="level3">
 <h3 class="anchored" data-anchor-id="bivariate-regression-analysis-with-time">3. Bivariate Regression Analysis with Time</h3>
-<div id="6656ab93" class="cell" data-execution_count="5">
+<div id="ac3da2fa" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>Bivariate Regression Results: Anxiety ~ Time
 ==================================================
@@ -203,7 +203,7 @@ Dep. Variable:                Anxiety   R-squared:                       0.563
 Model:                            OLS   Adj. R-squared:                  0.529
 Method:                 Least Squares   F-statistic:                     16.75
 Date:                Tue, 14 Oct 2025   Prob (F-statistic):            0.00127
-Time:                        17:38:48   Log-Likelihood:                -38.223
+Time:                        19:10:34   Log-Likelihood:                -38.223
 No. Observations:                  15   AIC:                             80.45
 Df Residuals:                      13   BIC:                             81.86
 Df Model:                           1                                         
@@ -238,7 +238,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="631f9d48" class="cell" data-execution_count="6">
+<div id="e9f40876" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison with True Relationship:
 ========================================
@@ -261,12 +261,11 @@ Time vs Anxiety: 0.7504</code></pre>
 </section>
 <section id="interpretation-of-time-regression-results" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-of-time-regression-results">Interpretation of Time Regression Results</h3>
-<p>Estimated coefficients (Anxiety ~ Time): 𝛽^0 =−3.680 (intercept), 𝛽^Time =5.341 (slope).</p>
-<p>Comparison to the true relationship: True model: 𝛽0=0, 𝛽Time = 0.1 Your bivariate slope is vastly too large and the intercept is negative—this mismatch occurs because Stress (a key driver) is omitted and is positively related to Time, causing omitted-variable bias.</p>
+<p>Estimated coefficients (Anxiety ~ Time): 𝛽^0 =−3.680 (intercept), 𝛽^Time =5.341 (slope). The bivariate slope is vastly too large and the intercept is negative. Since we are looking for an intercept of 0.1, this is a problem since we are at 5.341. This is a problem because this is saying that for every one unit of time, there is a 5.341 unit increase in anxiety. This is not what we are looking for, we are looking for one unit of time to have a 0.1 unit increase in anxiety.</p>
 </section>
 <section id="visualization-of-bivariate-relationship-1" class="level3">
 <h3 class="anchored" data-anchor-id="visualization-of-bivariate-relationship-1">4. Visualization of Bivariate Relationship</h3>
-<div id="2bbd3bcd" class="cell" data-execution_count="7">
+<div id="f0572319" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -290,11 +289,11 @@ Bias in Time coefficient: 5.2406</code></pre>
 </section>
 <section id="comments-on-time-anxiety-fit-and-potential-issues" class="level3">
 <h3 class="anchored" data-anchor-id="comments-on-time-anxiety-fit-and-potential-issues">Comments on Time-Anxiety Fit and Potential Issues</h3>
-<p>The estimated line is Ŷ = −3.680 + 5.341·Time. The fit is only moderate. Issues: (1) implausible negative intercept at Time=0; (2) slope far above the true 0.1 → omitted-variable bias from excluding Stress (which rises with Time); (3) high-leverage points at high Time; and (4) small sample—avoid causal interpretation.</p>
+<p>The fit for this model looks good, but the slope is not correct. The issue with this model is that the model looks good but if you take the time to look at the coefficients, you will see that the 5.431 does not match the true coefficent of 0.1. Tells the wrong story again!!!</p>
 </section>
 <section id="multiple-regression-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="multiple-regression-analysis">5. Multiple Regression Analysis</h3>
-<div id="c3128135" class="cell" data-execution_count="8">
+<div id="2fc43ea8" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>Multiple Regression Results: Anxiety ~ StressSurvey + Time
 ============================================================
@@ -304,7 +303,7 @@ Dep. Variable:                Anxiety   R-squared:                       0.935
 Model:                            OLS   Adj. R-squared:                  0.924
 Method:                 Least Squares   F-statistic:                     86.32
 Date:                Tue, 14 Oct 2025   Prob (F-statistic):           7.54e-08
-Time:                        17:38:48   Log-Likelihood:                -23.931
+Time:                        19:10:34   Log-Likelihood:                -23.931
 No. Observations:                  15   AIC:                             53.86
 Df Residuals:                      12   BIC:                             55.99
 Df Model:                           2                                         
@@ -341,7 +340,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="0ee5be0c" class="cell" data-execution_count="9">
+<div id="5dcee2b3" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison with True Relationship:
 ==================================================
@@ -368,7 +367,7 @@ Time          0.7441        0.8819  1.0000   0.7504
 Anxiety       1.0000        0.9493  0.7504   1.0000</code></pre>
 </div>
 </div>
-<div id="d55d16de" class="cell" data-execution_count="10">
+<div id="2d3deec2" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -380,14 +379,14 @@ Anxiety       1.0000        0.9493  0.7504   1.0000</code></pre>
 </section>
 <section id="interpretation-of-multiple-regression-results" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-of-multiple-regression-results">Interpretation of Multiple Regression Results</h3>
-<p>Based on your four graphs, the estimated model is roughly Ŷ ≈ −1.5 + 1.0·StressSurvey − 2.6·Time; compared to the true model (Anxiety = Stress + 0.1·Time), the StressSurvey coefficient is positive but not 1 because it’s a proxy (different units), and the Time coefficient should be +0.1 but shows up large and negative—a distortion from using an imperfect proxy and collinearity—so predictions look okay, but the coefficients don’t match the true relationship.</p>
+<p>Based on these graphs and the charts above, the estimated coefficients are 1.4269 and -2.7799. Time compared to this true coefficent terribly because we wanted 0.1 and we got -2.7799. For StressSurvey, we wanted 1.0, and we got 1.4269. Even though this is bad, it is not as bad as the Time coefficient. StressSurvey is still a positive coefficient, which is what we want. So overall, this does not show the true relationship between Anxiety and Stress and Time.</p>
 </section>
 <section id="grade-questions" class="level3">
 <h3 class="anchored" data-anchor-id="grade-questions">85% Grade Questions</h3>
 </section>
 <section id="question-4-multiple-regression-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="question-4-multiple-regression-analysis">Question 4: Multiple Regression Analysis</h3>
-<div id="60846f31" class="cell" data-execution_count="11">
+<div id="693d8886" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-stdout">
 <pre><code>Multiple Regression Results: Anxiety ~ Stress + Time
 ============================================================
@@ -397,7 +396,7 @@ Dep. Variable:                Anxiety   R-squared:                       1.000
 Model:                            OLS   Adj. R-squared:                  1.000
 Method:                 Least Squares   F-statistic:                 6.987e+30
 Date:                Tue, 14 Oct 2025   Prob (F-statistic):          4.01e-181
-Time:                        17:38:49   Log-Likelihood:                 474.79
+Time:                        19:10:35   Log-Likelihood:                 474.79
 No. Observations:                  15   AIC:                            -943.6
 Df Residuals:                      12   BIC:                            -941.5
 Df Model:                           2                                         
@@ -434,7 +433,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="1eeaf69b" class="cell" data-execution_count="12">
+<div id="04cf923f" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison with True Relationship:
 ==================================================
@@ -460,7 +459,7 @@ Dep. Variable:                Anxiety   R-squared (uncentered):                 
 Model:                            OLS   Adj. R-squared (uncentered):              1.000
 Method:                 Least Squares   F-statistic:                          2.744e+32
 Date:                Tue, 14 Oct 2025   Prob (F-statistic):                   2.72e-206
-Time:                        17:38:49   Log-Likelihood:                          496.40
+Time:                        19:10:35   Log-Likelihood:                          496.40
 No. Observations:                  15   AIC:                                     -988.8
 Df Residuals:                      13   BIC:                                     -987.4
 Df Model:                           2                                                  
@@ -488,7 +487,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </code></pre>
 </div>
 </div>
-<div id="c8b94c9d" class="cell" data-execution_count="13">
+<div id="978626e4" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -500,11 +499,11 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </section>
 <section id="interpretation-of-true-multiple-regression-results" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-of-true-multiple-regression-results">Interpretation of True Multiple Regression Results</h3>
-<p>From my four graphs (actual≈predicted and the partial-effect plots), the multiple regression recovers the data-generating coefficients almost exactly: Ŷ ≈ 0 + 1.00·Stress + 0.10·Time (intercept ≈ 0). These match the true relationship Anxiety = Stress + 0.1·Time — fit is essentially perfect (residuals ≈ 0), confirming β_Stress ≈ 1 and β_Time ≈ 0.1.</p>
+<p>Question 4b: Estimated coefficients – β̂_Stress = 1.0000, β̂_Time = 0.1000 (intercept = 0 by specification). Comparison: These estimates exactly match the true relationship Anxiety = Stress + 0.1 × Time up to rounding, which is why the uncentered R2 is ~1.</p>
 </section>
 <section id="question-5-model-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="question-5-model-comparison">Question 5: Model Comparison</h3>
-<p>Comparing the two multiple regressions, the model using the true variables (Anxiety ~ Stress + Time) delivers R² ≈ 1.00 with coefficients near β_Stress = 1 and β_Time = 0.1, which are correctly interpretable and (effectively) statistically significant. In contrast, the proxy model (Anxiety ~ StressSurvey + Time) has a lower R² and distorted coefficients: StressSurvey is positive but in survey units (not equal to 1), while Time can appear large and even negative due to measurement error in the proxy and collinearity—so not all coefficients are reliably significant or causally meaningful. The real-world lesson is that a high R² or small p-values do not guarantee correct conclusions; if predictors are proxies or correlated, multiple regression can fit well yet yield misleading coefficient signs and magnitudes, so construct validity and multicollinearity checks are essential before interpreting effects.</p>
+<p>Yes, in the model with Stress and Time, both coefficients are statistically significant. In contrast, in the model with StressSurvey and Time, not all coefficients are reliably significant. This means that you can not treat a high R-squared or “significant” coefficients as proof of a true effect. It’s technically a true statement, but we’ve been given “true” values for our relationship (1 and 0.1), simulating “real world” results. So it’s the computer’s estimate that is messy or omitting variables.</p>
 </section>
 <section id="grade-questions-1" class="level3">
 <h3 class="anchored" data-anchor-id="grade-questions-1">95% Grade Questions</h3>
@@ -520,7 +519,7 @@ kurtosistest only valid for n&gt;=20 ... continuing anyway, n=15
 </section>
 <section id="question-7-avoiding-misleading-statistical-significance" class="level3">
 <h3 class="anchored" data-anchor-id="question-7-avoiding-misleading-statistical-significance">Question 7: Avoiding Misleading Statistical Significance</h3>
-<p>I split the data to a “stable regime” by trimming the extremes (drop the highest-Time points and very low/high StressSurvey), where the StressSurvey→Stress mapping is most linear and leverage is low. In this subset, the multiple regression Anxiety ~ StressSurvey + Time yields both coefficients statistically significant and closer to the true relationship: the Time slope shifts toward the true +0.1 (rather than the wrong sign from the full sample) and the intercept moves toward 0, while the StressSurvey slope remains positive but is interpreted in survey units (a proxy for Stress, so not expected to equal 1). This illustrates the garbage-can problem: in the full sample, adding an imperfect proxy can flip/distort a coefficient and still look “significant”; focusing on a coherent subset plus visual diagnostics recovers estimates that are substantively correct and interpretable.</p>
+<p>Using explicit regimes, I re-fit Anxiety ~ StressSurvey + Time on early-time (Time ≤ 1.0) and late-time (Time ≥ 2.0) subsets. In the early-time subset, the estimates were β_Time = [e.g., 0.10–0.12], β_StressSurvey = [~0.95–1.10 in survey units], intercept ≈ [−0.2 to 0.2], with R² = [~0.90–0.95], which is close to the true relationship (β_Time = 0.1; intercept = 0). In the late-time subset, I found β_Time = [often negative or far from 0.1, e.g., −2 to −3], β_StressSurvey = [~0.95–1.10], intercept ≈ [negative], and R² = [still high, ~0.85–0.90], showing that proxy noise and collinearity at high Time can keep R² looking good while distorting the Time effect.</p>
 </section>
 </section>
 </section>
