@@ -122,6 +122,7 @@ plt.show()
 
 ### Interpretation of Results
 Because it omits Time, whose true effect is +0.1, the regression shifts Time’s effect into the intercept and the StressSurvey slope. That’s why you get a negative intercept and a slope on the proxy that looks “good” but is biased by the missing Time effect; when you include Time, its coefficient moves toward 0.1, revealing that the StressSurvey-only result was misleading.
+The estimated slope of 1.047 is very close to the true slope of approximately 1.0, indicating that the model accurately captured the rate at which anxiety increases with stress.
 
 ### 2. Visualization of Bivariate Relationship
 
@@ -174,7 +175,8 @@ print(f"Standard error of residuals: {np.sqrt(model.mse_resid):.4f}")
 ```
 
 ### Comments on Fit and Potential Issues
-For the Time → Anxiety plot, the fitted line is Ŷ = −3.680 + 5.341·Time, which shows only a moderate fit and—crucially—the Time coefficient is wildly overstated versus the true +0.1. This happens because the model omits Stress, which rises with Time, so the Time slope soaks up Stress’s effect (omitted-variable bias); the negative intercept is another red flag, and the high-Time points are high-leverage, making the slope look steeper than it really is.
+The problem with this model is that it shows a strong correlation between StressSurvey and Anxiety, but the slope is not the true slope of 1.0. This is because the model omits Time, whose true effect is +0.1, so the slope soaks up Stress’s effect (omitted-variable bias). The negative intercept is another red flag, and the high-StressSurvey points are high-leverage, making the slope look steeper than it really is. The fit looks good, but it does not tell the right story because we have the negative intercept and the slope is not the true slope of 1.0.
+
 ### 3. Bivariate Regression Analysis with Time
 
 ```{python}
