@@ -121,8 +121,8 @@ plt.show()
 ```
 
 ### Interpretation of Results
-It fits well but is wrong, because the true model is Anxiety = Stress + 0.1·Time (intercept 0, no StressSurvey), so using the survey proxy and omitting Time biases the result.
-
+The true model is 
+Anxiety = Stress + 0.1 × Time (intercept =0, no StressSurvey term). So even though the bivariate fit looks strong, its intercept is wrong (should be 0) and the slope isn’t the true stress effect (1 on Stress) because StressSurvey is a proxy and omitting Time introduces bias.
 ### 2. Visualization of Bivariate Relationship
 
 ```{python}
@@ -304,11 +304,6 @@ ax.set_facecolor('#f8f9fa')
 stats_text_time = f'R² = {r_squared_time:.4f}\nSlope = {slope_time:.4f}\nIntercept = {intercept_time:.4f}\nTrue Time Coef = 0.1'
 ax.text(0.02, 0.98, stats_text_time, transform=ax.transAxes, fontsize=10,
         verticalalignment='top', bbox=dict(boxstyle='round', facecolor='lightgreen', alpha=0.8))
-
-# Add comparison to true relationship
-true_line_y = 0.1 * x_range_time
-ax.plot(x_range_time, true_line_y, 'orange', linestyle='--', linewidth=2, alpha=0.7,
-         label='True Time Component (0.1 × Time)')
 
 plt.tight_layout()
 plt.show()
