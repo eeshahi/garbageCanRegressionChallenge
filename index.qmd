@@ -231,30 +231,17 @@ print(f"Time vs Stress: {observDF['Time'].corr(observDF['Stress']):.4f}")
 print(f"Time vs Anxiety: {observDF['Time'].corr(observDF['Anxiety']):.4f}")
 
 # Visualize the relationship
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+fig, ax = plt.subplots(figsize=(10, 6))
 
-# Plot 1: Anxiety vs Time (what we're regressing)
-ax1.scatter(observDF['Time'], observDF['Anxiety'], alpha=0.7, s=100, color='darkgreen', edgecolors='black')
-ax1.plot(observDF['Time'], intercept_time + slope_time * observDF['Time'], 
+# Anxiety vs Time (what we're regressing)
+ax.scatter(observDF['Time'], observDF['Anxiety'], alpha=0.7, s=100, color='darkgreen', edgecolors='black')
+ax.plot(observDF['Time'], intercept_time + slope_time * observDF['Time'], 
          'r-', linewidth=2, label=f'Fitted line: Anxiety = {intercept_time:.3f} + {slope_time:.3f} × Time')
-ax1.set_xlabel('Time')
-ax1.set_ylabel('Anxiety')
-ax1.set_title('Anxiety vs Time (Estimated)')
-ax1.legend()
-ax1.grid(True, alpha=0.3)
-
-# Plot 2: Show the true relationship components
-ax2.scatter(observDF['Time'], observDF['Anxiety'], alpha=0.7, s=100, color='darkgreen', edgecolors='black', label='Observed Anxiety')
-# Show what Anxiety would be if it were only 0.1 × Time (true Time component)
-true_time_component = 0.1 * observDF['Time']
-ax2.scatter(observDF['Time'], true_time_component, alpha=0.7, s=60, color='orange', 
-           marker='^', label='True Time component (0.1 × Time)')
-ax2.plot(observDF['Time'], true_time_component, 'orange', linestyle='--', alpha=0.7)
-ax2.set_xlabel('Time')
-ax2.set_ylabel('Anxiety')
-ax2.set_title('True Time Component vs Observed Anxiety')
-ax2.legend()
-ax2.grid(True, alpha=0.3)
+ax.set_xlabel('Time')
+ax.set_ylabel('Anxiety')
+ax.set_title('Anxiety vs Time (Estimated)')
+ax.legend()
+ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()
